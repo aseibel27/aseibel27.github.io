@@ -1,7 +1,10 @@
-export default {
+import { defineConfig } from 'vitepress'
+
+export default defineConfig ({
 
     title: "Alex Seibel",
     description: "Engineering Portfolio",
+    base: '/',
 
     themeConfig: {
 
@@ -84,4 +87,4 @@ export default {
             },
         ]
     }
-}
+})
