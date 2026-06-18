@@ -6,7 +6,6 @@ export default defineConfig ({
     description: "Engineering Portfolio",
 
     base: '/',
-    cleanUrls: true,
 
     themeConfig: {
 
