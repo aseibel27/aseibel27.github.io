@@ -4,7 +4,9 @@ export default defineConfig ({
 
     title: "Alex Seibel",
     description: "Engineering Portfolio",
+
     base: '/',
+    cleanUrls: true,
 
     themeConfig: {
 
