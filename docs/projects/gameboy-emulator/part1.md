@@ -18,15 +18,15 @@ The gameboy itself is primarily composed of a system clock, central processing u
 <ImageCarousel
 :images="[
 {
-    src: '/projects/gameboy-emulator/images/gameboy_color.png',
+    src: '/images/gameboy-emulator/gameboy_color.png', 
     caption: 'Gameboy Color.',
 },
 {
-    src: '/projects/gameboy-emulator/images/gameboy_hardware.png',
+    src: '/images/gameboy-emulator/gameboy_hardware.png',
     caption: 'Hardware architecture of the Gameboy.'
 },
 {
-    src: '/projects/gameboy-emulator/images/gameboy_cgb_board.png',
+    src: '/images/gameboy-emulator/gameboy_cgb_board.png',
     caption: 'Motherboard from the Gameboy Color.'
 }
 ]"
@@ -38,7 +38,7 @@ Below is a short summary of the Gameboy's main hardware components.
 - CPU: The CPU executes through the game code following a set of hardwired instructions.  The gameboy has a hybrid instruction set of the Intel 8080 and Zilog Z80 microprocessors.  Microcode executes at 4 MHz, but gets grouped into 4-tick cycles called Machine (M)-Cycles, with over 500 different opcodes.  Each instruction takes 1-6 M-cycles to execute.  Several of the opcodes are shown in the table to the right.  The cpu has several built-in 8-bit registers (A, B, C, D, E, F, H, L) to process bytes and these registers can also be used in pairs (AF, BC, DE, HL).  There is a Stack pointer register (SP) that can keep track of the location of data pushed to High RAM.  The CPU will also handle interrupts (which are flags that tell the CPU to execute other code before jumping back to what it was doing).  Interrupts can be from timers, button I/O, or from dialog with the PPU. 
 
 <FigureImage
-    src="/projects/gameboy-emulator/images/gameboy_instruction_matrix.png"
+    src="/images/gameboy-emulator/gameboy_instruction_matrix.png"
     caption="Part of the Gameboy's instruction matrix."
 />
 
@@ -50,7 +50,7 @@ Below is a short summary of the Gameboy's main hardware components.
   - Ch4: Noise channel
 
 <FigureImage
-    src="/projects/gameboy-emulator/images/gameboy_audio.png"
+    src="/images/gameboy-emulator/gameboy_audio.png"
     caption="Four wave channels make up the Gameboy's audio."
 />
 
@@ -59,6 +59,6 @@ Below is a short summary of the Gameboy's main hardware components.
 - Memory: The Gameboy and cartridge have 64 kb of addressable 8-bit memory (up to 0xFFFF in hex).  The first 32 kB come from the cartridge ROM.  If the ROM is larger than 32 kB (ROMs can be >1Mb), a memory bank controller (MBC) in the cartridge can allow the gameboy to access different regions in the cartridge memory.   The rest of addressable memory is mostly the Gameboy's VRAM (which holds tile information), registers for the PPU, APU, or I/O, and the stack.  During startup the Gameboy first reads 256 bytes of an internal boot ROM (which shows the Nintendo logo among other things) and then jumps to address 0x0100 in the cartridge ROM to start running the game's code.  When saving a game, certain data gets copied to the cartridge's RAM. 
 
 <FigureImage
-    src="/projects/gameboy-emulator/images/gameboy_memory_map.png"
+    src="/images/gameboy-emulator/gameboy_memory_map.png"
     caption="Address map of the Gameboy's memory."
 />

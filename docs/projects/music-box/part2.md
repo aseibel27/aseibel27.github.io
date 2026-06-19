@@ -7,7 +7,7 @@ The DFPlayer can be controlled via serial communication by using a microcontroll
 The DFPlayer's RX pin is designed to operate at a 3.3V TTL level, meaning a ~2-3.3V signal will count as HIGH, and a higher 5V signal could cause damage. It is recommended to use a voltage divider to lower the voltage for this pin. I added a 680 Ohm resistor between the DFPlayer's RX pin and the Arduino's TX pin and a 1 kOhm resistor between the DFPlayer's RX pin and ground, which should drop the voltage down from 5 V to ~3V for the DFPlayer's RX pin. I powered the DFPlayer with 5V supply from the Arduino. The setup is shown below.
 
 <FigureImage
-    src="/projects/music-box/images/BreadboardHardwareSerial_cropped.jpg"
+    src="/images/music-box/BreadboardHardwareSerial_cropped.jpg"
     caption="Hardware serial connection between Arduino and DFPlayer."
 />
 
@@ -78,7 +78,7 @@ void loop() {
 Running this script gave the following output on the Serial Monitor. The first song started playing at a softer volume than the default '30' setting. The status returned as '1'. The DFPlayer is supposed to return a status of '0' for not playing, '1' for playing, or '2' for paused. The DFPlayer returned the correct volume of '10' that we set it to.
 
 <FigureImage
-    src="/projects/music-box/images/Part2a_hardwareserial_serialmonitor_cropped.png"
+    src="/images/music-box/Part2a_hardwareserial_serialmonitor_cropped.png"
     outline
 />
 
@@ -89,15 +89,15 @@ I wanted to learn the details about the serial communication that was happening 
 <ImageCarousel
 :images="[
 {
-    src: '/projects/music-box/images/SDS00031_reset.png',
+    src: '/images/music-box/SDS00031_reset.png',
     caption: 'The \'Reset\' command sent from the Arduino to the DFPlayer.'
 },
 {
-    src: '/projects/music-box/images/SDS00032_onebyte.png',
+    src: '/images/music-box/SDS00032_onebyte.png',
     caption: 'One 10-bit frame from the Arduino\'s message - 0x7E corresponds to the start byte.'
 },
 {
-    src: '/projects/music-box/images/SDS00033.png',
+    src: '/images/music-box/SDS00033.png',
     caption: 'The DFPlayer responds, acknowledging that it received the \'Reset\' command.'
 }
 ]"
@@ -110,7 +110,7 @@ The message being sent is '7E FF 06 0C 01 00 00 FE EE EF'. According to the data
 Finally the tenth byte is the end byte, which should always be EF. The format is detailed below in a table provided by the datasheet.
 
 <FigureImage
-    src="/projects/music-box/images/Part2a_serialcommandformattable.png"
+    src="/images/music-box/Part2a_serialcommandformattable.png"
 />
 
 The message received is '7E FF 06 41 00 00 00 FE BA EF'. According to the datasheet, the command '0x41' is sent by the DFPlayer to notify the microcontroller that the DFPlayer successfully received a message. It is only returned when the initial message from the microcontroller includes '0x01' as its feedback byte.
@@ -118,14 +118,14 @@ The message received is '7E FF 06 41 00 00 00 FE BA EF'. According to the datash
 Next let's look at the signals involved with some of the other commands. For 'myDFPlayer.volume', the message sent is '7E FF 06 06 01 00 0A FE EA EF'. The command byte to set volume is '0x06'. The message received is the same feedback confirmation of '7E FF 06 41 00 00 00 FE B7 EF'. Everything is as expected here.
 
 <FigureImage
-    src="/projects/music-box/images/SDS00036_setvolume.png"
+    src="/images/music-box/SDS00036_setvolume.png"
     caption="The 'Set Volume' command sent from the Arduino to the DFPlayer."
 />
 
 Now, let's look at one of the commands that actually requests information from the DFPlayer. For myDFPlayer.GetVolume(), the message sent is '7E FF 06 43 01 00 00 FE EA EF'. The command byte for getting the volume information from the DFPlayer is '0x43'. The message received is actually two sets of 10 frames: '7E FF 06 41 00 00 00 FE B7 EF' then '7E FF 06 43 00 00 0A FE AE EF'. The first message is the same feedback confirmation. The second message includes the same command from the message that was sent to the DFPlayer (0x41), but the feedback byte is now 0x00 and the value is now '00 0A' (or 10 in decimal). This tells us that the current volume of the DFPlayer is 10, as it is supposed to be.
 
 <FigureImage
-    src="/projects/music-box/images/SDS00038_getvolume.png"
+    src="/images/music-box/SDS00038_getvolume.png"
     caption="The 'Get Volume' command sent from the Arduino to the DFPlayer."
 />
 
